@@ -2,25 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour 
+public class BossController : MonoBehaviour
 {
-    public static GameManager instance;
+    public static BossController instance;
 
     private void OnEnable()
     {
         instance = this;
     }
-
     private void OnDestroy()
     {
-        if (instance != null)
-        {
-            Destroy(instance);
-        }
+        Destroy(instance);
     }
 
-    public void OnHeroDeath()
+    void Start()
     {
+        
+    }
 
+
+    void Update()
+    {
+        
     }
 }
