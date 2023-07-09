@@ -78,7 +78,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void CheckAndSetDestination()
     {
-        if (!navAgent.hasPath)
+        if (!navAgent.hasPath || navAgent.destination == BossController.instance.transform.position)
         {
             RaycastHit hit;
             int randX = Random.Range(-5, 5);
@@ -104,9 +104,11 @@ public class HeroStateMachine : MonoBehaviour
         {
             return;
         }
+        
     }
     private void HeroIdle()
     {
+        Debug.Log("In Idle state");
         //If dead do death animation
         if (currentHealth <= 0)
         {
@@ -119,6 +121,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void HeroWalk()
     {
+        Debug.Log("In walk state");
         //Check Health and decide to go towards boss or away
         //Health is greater than quarter or if no more health potions left try fighting
         if (currentHealth > maxHealth * 0.25f || numOfHealthPotion <= 0)
@@ -130,6 +133,7 @@ public class HeroStateMachine : MonoBehaviour
                 //Currently standing in a aoe area
                 if (hit.collider.tag == "AoeAreaObj")
                 {
+                    Debug.Log("Standing in AOE area, lot of health");
                     //Try to roll away
                     if (currentStamina >= rollCost)
                     {
@@ -149,6 +153,10 @@ public class HeroStateMachine : MonoBehaviour
                     {
                         //Walk to safe area
                         CheckAndSetDestination();
+                        if (navAgent.destination == BossController.instance.transform.position)
+                        {
+
+                        }
                     }
                 }
                 //Not in AOE Area so either attack if close enough or move towards the boss
@@ -162,10 +170,7 @@ public class HeroStateMachine : MonoBehaviour
                     else
                     {
                         //Set destination to boss
-                        if (!navAgent.hasPath)
-                        {
-                            navAgent.SetDestination(BossController.instance.transform.position);
-                        }
+                        navAgent.SetDestination(BossController.instance.transform.position);
                     }
                 }
             }
@@ -182,6 +187,7 @@ public class HeroStateMachine : MonoBehaviour
                 //Currently standing in a aoe area
                 if (hit.collider.tag == "AoeAreaObj")
                 {
+                    Debug.Log("Standing in AOE area, low health");
                     //Try to roll away
                     if (currentStamina >= rollCost)
                     {
@@ -218,6 +224,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void HeroBlock()
     {
+        Debug.Log("In Block state");
         //TODO: Do Block animation
 
         //Drain some stamina on impact
@@ -231,6 +238,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void HeroRoll()
     {
+        Debug.Log("In Roll state");
 
         //pick direction to roll(away from damage most likely)
         CheckAndSetDestination();
@@ -240,15 +248,13 @@ public class HeroStateMachine : MonoBehaviour
         currentStamina -= rollCost;
 
         //SWITCH to Idle when finished
-        if (!navAgent.hasPath)
-        {
-            //TODO: Check if animation is done before SWITCH
-            currentState = HeroStates.Idle;
-        }
+        currentState = HeroStates.Idle;
     }
 
     private void HeroRun()
     {
+        Debug.Log("In run state");
+
         //Pick where to run and move
         navAgent.speed = navAgent.speed * 1.5f;
         CheckAndSetDestination();
@@ -259,14 +265,14 @@ public class HeroStateMachine : MonoBehaviour
 
         
         //When done running SWITCH to idle
-        if (!navAgent.hasPath)
-        {
+            navAgent.speed = navAgent.speed * .5f;
             currentState = HeroStates.Idle;
-        }
     }
 
     private void HeroAttack()
     {
+        Debug.Log("In Attack state");
+
         //TODO: Animation of Swing at the boss
 
         //TODO: Deal damage to boss
@@ -280,6 +286,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void HeroHeal()
     {
+        Debug.Log("In Heal state");
         //Use heal potion
         numOfHealthPotion -= 1;
         currentHealth += 50;
@@ -290,6 +297,7 @@ public class HeroStateMachine : MonoBehaviour
 
     private void Death()
     {
+        Debug.Log("In Death state");
 
         //Double checks if health is at zero
         if (currentHealth <= 0)
