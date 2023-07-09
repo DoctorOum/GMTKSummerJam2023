@@ -31,6 +31,7 @@ public class HeroStateMachine : MonoBehaviour
     private int blockCost;
 
     private bool tryToHeal = false;
+    private Rigidbody rb;
 
     void Start()
     {
@@ -39,6 +40,8 @@ public class HeroStateMachine : MonoBehaviour
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         numOfHealthPotion = maxNumOfHealthPotion;
+
+        rb = GetComponent<Rigidbody>();
     }
 
 
@@ -104,8 +107,14 @@ public class HeroStateMachine : MonoBehaviour
         {
             return;
         }
-        
     }
+
+    private void SetRollDestination()
+    {
+        navAgent.ResetPath();
+        rb.Move(new Vector3(transform.position.x + 10, 0, transform.position.y), Quaternion.identity);
+    }
+
     private void HeroIdle()
     {
         Debug.Log("In Idle state");
@@ -128,7 +137,7 @@ public class HeroStateMachine : MonoBehaviour
         {
             RaycastHit hit;
             //Checks current floor hero is standing on
-            if (Physics.Raycast(transform.position,Vector3.down, out hit, 25))
+            if (Physics.Raycast(transform.position,Vector3.down, out hit, 25, ~LayerMask.NameToLayer("Ground")))
             {
                 //Currently standing in a aoe area
                 if (hit.collider.tag == "AoeAreaObj")
@@ -149,14 +158,10 @@ public class HeroStateMachine : MonoBehaviour
                     {
                         currentState = HeroStates.Run;
                     }
-                    else
+                    else if (currentState != HeroStates.Roll || currentState != HeroStates.Block || currentState != HeroStates.Run)
                     {
                         //Walk to safe area
                         CheckAndSetDestination();
-                        if (navAgent.destination == BossController.instance.transform.position)
-                        {
-
-                        }
                     }
                 }
                 //Not in AOE Area so either attack if close enough or move towards the boss
@@ -241,7 +246,7 @@ public class HeroStateMachine : MonoBehaviour
         Debug.Log("In Roll state");
 
         //pick direction to roll(away from damage most likely)
-        CheckAndSetDestination();
+        SetRollDestination();
         //TODO: Do anmiation while moving character in direction
 
         //Drain some stamina on use
@@ -292,6 +297,14 @@ public class HeroStateMachine : MonoBehaviour
         currentHealth += 50;
 
         //SWITCH to idle on animation done
+        currentState = HeroStates.Idle;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Debug.Log($"Taking {damage} damage, current health is {currentHealth}");
+
         currentState = HeroStates.Idle;
     }
 

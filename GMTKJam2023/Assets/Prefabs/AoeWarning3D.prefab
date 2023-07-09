@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3642561144297624810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 10}
+  m_LocalScale: {x: 2, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6604421410692835131}
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 5632304085007017092}
   - component: {fileID: 5427533436599335486}
   - component: {fileID: 2907912690934095374}
+  - component: {fileID: 7360216450391591033}
   m_Layer: 3
   m_Name: Cube (1)
   m_TagString: AoeAreaObj
@@ -184,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 9083915560258875201}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.1, y: 1.1, z: 10.1}
+  m_LocalScale: {x: 2.1, y: 1.1, z: 10.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6604421410692835131}
@@ -277,3 +278,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &7360216450391591033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9083915560258875201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874450a181c61ed4f942d03063596beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Axe: 1
+  Comet: 0
+  Ice: 0
+  Ult: 0
