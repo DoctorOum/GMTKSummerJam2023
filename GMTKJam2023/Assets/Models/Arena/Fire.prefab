@@ -159,8 +159,8 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8454412702103591663}
   serializedVersion: 8
-  lengthInSec: 1
-  simulationSpeed: 0.75
+  lengthInSec: 2
+  simulationSpeed: 1.1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -170,7 +170,7 @@ ParticleSystem:
   prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
-  autoRandomSeed: 0
+  autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -722,7 +722,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 1
+    maxNumParticles: 2
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -1545,8 +1545,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.9999
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5240,7 +5240,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.51
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5704,7 +5704,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.05
+      value: 0.13
       mode: 0
       spread: 0
       speed:
@@ -9813,5 +9813,5 @@ Transform:
   - {fileID: 4734504490865077096}
   - {fileID: 5168737850614700627}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
